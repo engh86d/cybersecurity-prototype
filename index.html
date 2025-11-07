@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Smart Lab - Cybersecurity Training Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none !important;
+        }
+
+        .page.active {
+            display: block !important;
+        }
+
+        /* Homepage Styles */
+        .homepage {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary {
+            background: #3182ce;
+            border-color: #3182ce;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2c5aa0;
+            border-color: #2c5aa0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'Century Gothic', sans-serif;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #e6f2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: #3182ce;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        .feature-card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Login/Register Styles */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .auth-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            color: #1a202c;
+        }
+
+        .auth-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            color: #4a5568;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3182ce;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-link {
+            color: #3182ce;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .form-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 0.875rem;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-full:hover {
+            background: #2c5aa0;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #4a5568;
+        }
+
+        .progress-indicator {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+            background: #f7fafc;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a365d;
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .sidebar-nav {
+            padding: 2rem 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+            color: #1a202c;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .challenge-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #3182ce;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .challenge-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .challenge-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #e6f2ff;
+            color: #3182ce;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.75rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3182ce;
+            transition: width 0.3s;
+        }
+
+        .challenge-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        /* Challenge Page Styles */
+        .challenge-page {
+            background: #1a202c;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .challenge-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .challenge-header h1 {
+            font-size: 2rem;
+            color: #1a202c;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            color: #3182ce;
+            font-weight: bold;
+        }
+
+        .challenge-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .challenge-panel {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .challenge-panel h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .objectives {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+        }
+
+        .terminal {
+            background: #1a202c;
+            color: #00ff00;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            height: 500px;
+            overflow-y: auto;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#3182ce 60%, #e2e8f0 60%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .progress-circle::before {
+            content: '60%';
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3182ce;
+        }
+
+        .instructor-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .instructor-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .instructor-table th {
+            background: #f7fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .instructor-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .btn-small:hover {
+            background: #2c5aa0;
+        }
+
+        @media (max-width: 768px) {
+            .challenge-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .dashboard {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <div id="homepage" class="page active homepage">
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <span>ADAPTIVE SMART LAB</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('homepage')">About</a></li>
+                <li><a href="#" onclick="showPage('homepage')">Features</a></li>
+                <li><a href="#" onclick="showPage('homepage')">Contact</a></li>
+            </ul>
+            <button class="btn" onclick="showPage('login')">Login</button>
+        </nav>
+
+        <div class="hero">
+            <h1>Adaptive Smart Lab for<br>Cybersecurity Skills Training</h1>
+            <p>Master cybersecurity through hands-on adaptive learning</p>
+            <button class="btn btn-primary" onclick="showPage('student-dashboard')">Get Started</button>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>Hands-on Labs</h3>
+                <p>Interactive labs to practice cybersecurity skills</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Adaptive Learning</h3>
+                <p>Personalized training that adjusts to your progress</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Real-world Scenarios</h3>
+                <p>Simulated attacks reflecting practical challenges</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page auth-page">
+        <div class="auth-container">
+            <h1>Welcome Back</h1>
+            <h2>Cybersecurity Training</h2>
+            
+            <form onsubmit="event.preventDefault(); showPage('student-dashboard');">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                
+                <div class="form-options">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="form-link">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn-full">Login</button>
+                
+                <div class="form-footer">
+                    Don't have an account? <a href="#" class="form-link" onclick="showPage('registration')">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="registration" class="page auth-page">
+        <div class="auth-container">
+            <div class="progress-indicator">1 of 3 - Account Details</div>
+            <h1>Create Your Account</h1>
+            
+            <form onsubmit="event.preventDefault(); showPage('student-dashboard');">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                
+                <div class="checkbox-group" style="margin-bottom: 1.5rem;">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                
+                <button type="submit" class="btn-full">Register</button>
+                
+                <div class="form-footer">
+                    Already have an account? <a href="#" class="form-link" onclick="showPage('login')">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="page dashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🛡️</div>
+                    <span>SECURITY</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active">📊 Dashboard</a>
+                <a href="#">📁 My Challenges</a>
+                <a href="#">📈 Progress</a>
+                <a href="#">🏆 Leaderboard</a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h1>Welcome back, Student!</h1>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Completed Challenges</h3>
+                        <div class="value">12</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Current Rank</h3>
+                        <div class="value">#47</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Points</h3>
+                        <div class="value">850</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <span class="challenge-badge">Web Security</span>
+                    <h3>Webcone Challenge</h3>
+                    <span class="challenge-status">Not Started</span>
+                    <div class="challenge-footer">
+                        <span>Easy</span>
+                        <button class="btn-small" onclick="showPage('challenge')">Start</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <span class="challenge-badge">Weatercham</span>
+                    <h3>Challenge 3</h3>
+                    <span class="challenge-status">In Progress</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                    <div class="challenge-footer">
+                        <span>Medium</span>
+                        <button class="btn-small" onclick="showPage('challenge')">Continue</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <span class="challenge-badge">Web Security</span>
+                    <h3>Test Challenge</h3>
+                    <span class="challenge-status" style="background: #d4edda; color: #155724;">Complete</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="challenge-footer">
+                        <span>Hard</span>
+                        <span>6 pts</span>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <span class="challenge-badge">Forensics</span>
+                    <h3>Malwar Challenge</h3>
+                    <span class="challenge-status">Not Started</span>
+                    <div class="challenge-footer">
+                        <span>Medium</span>
+                        <button class="btn-small" onclick="showPage('challenge')">Start</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <span class="challenge-badge" style="background: #38a169;">Cryptography</span>
+                    <h3>Code-Challenge</h3>
+                    <span class="challenge-status">Not Started</span>
+                    <div class="challenge-footer">
+                        <span>Hard</span>
+                        <button class="btn-small" onclick="showPage('challenge')">Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructor Dashboard -->
+    <div id="instructor-dashboard" class="page dashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🛡️</div>
+                    <span>CYBEREDU</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active">📊 Dashboard</a>
+                <a href="#">👥 Students</a>
+                <a href="#">🎯 Challenges</a>
+                <a href="#">⚙️ Settings</a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Students</h3>
+                        <div class="value">156</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #9333ea 0%, #c026d3 100%);">
+                        <h3>Active Students</h3>
+                        <div class="value">89</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Completion Rate</h3>
+                        <div class="value">67%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructor-table">
+                <h2 style="padding: 1.5rem 1.5rem 0;">Student Name</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Challenges Completed</th>
+                            <th>Current Progress</th>
+                            <th>Points</th>
+                            <th>Last Active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Smith</td>
+                            <td>12/20</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                                60%
+                            </td>
+                            <td>2000</td>
+                            <td>2 hours ago</td>
+                            <td><button class="btn-small">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td>John Smith</td>
+                            <td>2/15</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 13%"></div>
+                                </div>
+                                13%
+                            </td>
+                            <td>1500</td>
+                            <td>1 day ago</td>
+                            <td><button class="btn-small">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td>Emily White</td>
+                            <td>8/15</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 53%"></div>
+                                </div>
+                                53%
+                            </td>
+                            <td>1200</td>
+                            <td>3 hours ago</td>
+                            <td><button class="btn-small">Message</button></td>
+                        </tr>
+                        <tr>
+                            <td>Mike Johnson</td>
+                            <td>5/10</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 50%"></div>
+                                </div>
+                                50%
+                            </td>
+                            <td>500</td>
+                            <td>3 days ago</td>
+                            <td><button class="btn-small">Message</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge Page -->
+    <div id="challenge" class="page challenge-page">
+        <div class="challenge-header">
+            <h1>SQL Injection Challenge</h1>
+            <div class="timer">⏱️ 2:46</div>
+        </div>
+
+        <div class="challenge-layout">
+            <div class="challenge-panel">
+                <h2>Scenario</h2>
+                <p style="margin-bottom: 1rem; color: #4a5568;">Your task is exploit a vulnerable web application to bypass authentication using SQL Injection techniques.</p>
+                
+                <p style="margin-bottom: 1rem; color: #3182ce; font-weight: 600;">Your task injection point authentication using SQL Injection</p>
+                
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Objectives:</h3>
+                <ol class="objectives">
+                    <li>1. Identify the injection point.</li>
+                    <li>2. Extract database version.</li>
+                    <li>3. Bypass login.</li>
+                    <li>4. Find the flag.</li>
+                </ol>
+                
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Download Files</h3>
+                <button class="btn-primary">challenge_files.zip</button>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div>user@kali:~$ sqlmap -u "http://target-site.com/login.php" --batch</div>
+                <div style="margin-top: 1rem;">        ___</div>
+                <div>       __H__</div>
+                <div> ___ ___[']_____ ___ ___  {1.7.2#stable}</div>
+                <div>|_ -| . [)]     | .'| . |</div>
+                <div>|___|_  ["]_|_|_|__,|  _|</div>
+                <div>      |_|V...       |_|   https://sqlmap.org</div>
+                <div style="margin-top: 1rem;">[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal.</div>
+                <div style="margin-top: 1rem;">[*] starting @ 10:23:45 /2024/</div>
+                <div>[10:23:45] [INFO] testing connection to the target URL</div>
+                <div>[10:23:46] [INFO] checking if the target is protected by some kind of WAF/IPS</div>
+                <div>[10:23:47] [INFO] testing if the target URL content is stable</div>
+                <div>[10:23:48] [INFO] target URL content is stable</div>
+                <div>[10:23:48] [INFO] testing if GET parameter 'username' is dynamic</div>
+                <div>[10:23:49] [INFO] GET parameter 'username' appears to be dynamic</div>
+                <div>[10:23:50] [INFO] heuristic (basic) test shows that GET parameter 'username' might be injectable</div>
+                <div style="margin-top: 1rem;">user@kali:~$ _</div>
+            </div>
+
+            <div class="challenge-panel">
+                <div class="timer" style="justify-content: center; font-size: 2rem; margin-bottom: 0.5rem;">2:46</div>
+                <p style="text-align: center; color: #4a5568; margin-bottom: 1.5rem;">Time Remaining</p>
+                
+                <h3 style="margin-bottom: 0.75rem;">Enter Flag</h3>
+                <input type="text" placeholder="flag{...}" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 1rem;">
+                
+                <button class="btn-full" style="margin-bottom: 1rem;">Submit Flag</button>
+                <button class="btn-full" style="background: white; color: #3182ce; border: 2px solid #3182ce;">Request Hint</button>
+                
+                <p style="text-align: center; color: #4a5568; margin-top: 1rem; font-size: 0.875rem;">Hints used: 1/3</p>
+                
+                <div class="progress-circle"></div>
+                <p style="text-align: center; color: #4a5568; margin-top: 0.5rem;">Complete</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Show homepage on load
+        window.addEventListener('DOMContentLoaded', function() {
+            showPage('homepage');
+        });
+    </script>
+</body>
+</html>
